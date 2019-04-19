@@ -20,9 +20,13 @@ options:
 if __name__ == '__main__':
     args = docopt(__doc__)
     # print(args)
-    diff_excel_data_results = diff_excel_data(Path(args.get("FROMFILE")), Path(args.get("TOFILE")), key=args.get("--key"))
-    text = show_diff_excel_data_as_text(diff_excel_data_results)
-    print(text)
+    if args["FROMFILE"] and args["TOFILE"]:
+        diff_excel_data_results = diff_excel_data(Path(args.get("FROMFILE","")), Path(args.get("TOFILE","")), key=args.get("--key"))
+        text = show_diff_excel_data_as_text(diff_excel_data_results)
+        print(text)
+    else:
+        print("ファイルを指定してください．")    
+        print(__doc__)   
 
     if args["--excel"]:
         show_diff_excel_data_as_xlsx(diff_excel_data_results)
