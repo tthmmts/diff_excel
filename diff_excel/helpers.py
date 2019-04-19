@@ -17,7 +17,7 @@ def get_dict_data_from_excel_file(file_path: Path, key: str = "") -> tuple:
     if not file_path.is_file():
         raise Exception("{0} というファイルは見つからない".format(file_path))
 
-    df = pd.read_excel(file_path, dtype=str)
+    df = pd.read_excel(file_path, dtype=str).fillna("")
     df.columns = [str(i) for i in df.columns]
 
     if key == "":
