@@ -22,44 +22,63 @@ Diff Excel
 
 
 要件
-________________________
+------------------------
 
-- Python 3.6+
-- pipenv
+- Python 3.5+
+- pipenv or pip
+- modeules
+    - numpy, openpyxl, xlrd, pytz, pandas, docopt
 
 導入
-_________________________
+------------------------
 ::
+
+  cd <your path>
+  git clone https://github.com/tthmmts/diff_excel.git
+  cd  diff_excel
+  pip install -e .
+
+or::
 
   pipenv install
 
 使い方
-_________________________
+------------------------
 
-とりあえず，コピペで動くように下記では `pipenv run` を表示している．よしなに．
+usage::
+
+    diff_excel.py [-h]
+    diff_excel.py [-e | --excel] [--key=<key>] FROMFILE TOFILE
+    diff_excel.py [-e | --excel] [-k <key>] FROMFILE TOFILE
+
+options:
+    -h, --help    show this help message and exit
+    -e, --excel   結果をExcelファイルで出力する（指定しなければ，テキスト出力のみ）
+    --key=<key>   IDとなる列カラムの名前．指定しなければ行番号となる．
+
 
 データを比較して，コマンドラインに表示． ::
 
-  pipenv run python diff_excel --key="id" from_book.xlsx to_book.xlsx
+  diff_excel --key="id" from_book.xlsx to_book.xlsx
 
 keyを省略すると行番号を利用する（つまりシートの2行目がkey "1" となる）． ::
 
-  pipenv run python diff_excel from_book.xlsx to_book.xlsx
+  diff_excel from_book.xlsx to_book.xlsx
 
 結果を Excel ファイルに書き出す．
 ファイルはカレントディレクトリに diff\_results\_％Y%m%dT%H%M%S.xlsx" の名前で出力される． ::
 
-  pipenv run python diff_excel --excel --key="id" from_book.xlsx to_book.xlsx
+  diff_excel --excel --key="id" from_book.xlsx to_book.xlsx
 
 
 実行例
---------------------------
+------------------------
 ./tests/test_data/ ディレクトリにテスト用のファイルがある．
 
 
 いくつかのセルで数値を変更 ::
 
-  pipenv run python diff_excel ./tests/test_data/from_book.xlsx ./tests/test_data/to_book.xlsx
+  diff_excel ./tests/test_data/from_book.xlsx ./tests/test_data/to_book.xlsx
 
 >>>
 行と列の削除や追加はありませんでした．
@@ -76,7 +95,7 @@ keyを省略すると行番号を利用する（つまりシートの2行目がk
 
 行と列の削除と挿入 ::
 
-  pipenv run python diff_excel --key="id" --excel ./tests/test_data/from_book.xlsx ./tests/test_data/insert_delete_book.xlsx
+  diff_excel --key="id" --excel ./tests/test_data/from_book.xlsx ./tests/test_data/insert_delete_book.xlsx
 
 
 >>>
