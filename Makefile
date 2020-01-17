@@ -1,2 +1,0 @@
-init:
-	pipenv install
